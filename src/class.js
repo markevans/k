@@ -18,7 +18,7 @@ var Class = function(name, definitionFunction){
     klass: klass
   }
   
-  definitionFunction.call(klass)
+  definitionFunction.call(klass, klass)
   
   return klass
 }

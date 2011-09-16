@@ -5,7 +5,8 @@ describe("Dub classes", function() {
     var Car
     
     beforeEach(function(){
-      Car = Class('Car', function(){
+      Car = Class('Car', function(klass){
+        
         this.include({
           colour: 'red'
         })
@@ -13,6 +14,9 @@ describe("Dub classes", function() {
         this.extend({
           jobby: 'dongles'
         })
+        
+        klass.eggs = 'EGGS'
+        
       })
     })
     
@@ -37,6 +41,10 @@ describe("Dub classes", function() {
     it("should allow defining class vars", function(){
       var car = Car.create()
       expect(Car.jobby).toEqual('dongles')
+    })
+    
+    it("should yield itself in the class definition", function(){
+      expect(Car.eggs).toEqual('EGGS')
     })
 
   })
