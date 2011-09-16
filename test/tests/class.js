@@ -61,4 +61,8 @@ describe("Dub classes", function() {
 
   })
 
+  it("should allow for no definition function", function(){
+    var Blobo = Class('Blobo')
+  })
+
 });
