@@ -21,6 +21,7 @@ bundle 'dub.js' do
   file 'dub.js'
   file 'publisher.js'
   file 'class.js'
+  file 'publishable.js'
 end
 
 # Optional post-bundling filter, for example for string substitution
