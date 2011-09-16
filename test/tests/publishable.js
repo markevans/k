@@ -28,4 +28,11 @@ describe("publishable", function() {
     expect(callback).toHaveBeenCalledWith('stink')
   })
   
+  it("should give this as itself in the callback", function(){
+    var x
+    car.on('doves', function(){ x = this })
+    car.emit('doves')
+    expect(x).toEqual(car)
+  })
+  
 })

@@ -1,4 +1,4 @@
-describe("Dub publisher", function() {
+describe("publisher", function() {
 
   var callback
 
@@ -18,11 +18,11 @@ describe("Dub publisher", function() {
     expect(callback).toHaveBeenCalledWith('some', ['args'], {inn: 'it'})
   })
   
-  it("should set 'this' as an empty object if no context is set", function() {
+  it("should set 'this' as the global object if no context is set", function() {
     var x
     dub.on('sing', function(){ x = this })
     dub.emit('sing')
-    expect(x).toEqual({})
+    expect(x).toEqual(window)
   })
 
   it("should set 'this' as the set context", function() {
@@ -48,6 +48,47 @@ describe("Dub publisher", function() {
     dub.on('sing', callback)
     dub.emit(['sing', 123])
     expect(callback).toHaveBeenCalled()
+  })
+
+  describe("subscribing to a class type", function(){
+    
+    var Blobo, blobo
+    
+    beforeEach(function(){
+      Blobo = Class('Blobo')
+      blobo = Blobo.create()
+    })
+    
+    it("should call the callback if the context is of the specified class", function() {
+      dub.on(['sing', 'Blobo'], callback)
+      dub.emit(['sing', blobo])
+      expect(callback).toHaveBeenCalled()
+    })
+
+    it("should not call the callback if the context is not of the specified class", function() {
+      dub.on(['sing', 'Chargrilled'], callback)
+      dub.emit(['sing', blobo])
+      expect(callback).not.toHaveBeenCalled()
+    })
+  
+  })
+
+  describe("defining what matches the event context", function(){
+    
+    var matcher = function(ctx){ return ctx == 5 }
+    
+    it("should call the subscribed callback if the matcher function is true", function() {
+      dub.on(['sing', matcher], callback)
+      dub.emit(['sing', 5])
+      expect(callback).toHaveBeenCalled()
+    })
+
+    it("should not call the subscribed callback if the matcher function is false", function() {
+      dub.on(['sing', matcher], callback)
+      dub.emit(['sing', 6])
+      expect(callback).not.toHaveBeenCalled()
+    })
+    
   })
 
 });

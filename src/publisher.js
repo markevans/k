@@ -1,7 +1,14 @@
 dub.publisher = (function(){
   
+  function contextMatches(matcher, context){
+    if(!matcher) return true
+    if(matcher.constructor === Function) return matcher(context)
+    if(matcher === context) return true
+    if(context.klass && matcher == context.klass.name) return true
+    return false
+  }
+  
   var callbacks = {}
-  var emptyObject = {}
   
   return {
     emit: function(){
@@ -16,9 +23,9 @@ dub.publisher = (function(){
 
       if(callbacks[event]){
         callbacks[event].forEach(function(c){
-          var callback = c[0], subscribedContext = c[1]
-          if(!subscribedContext || subscribedContext === context){
-            callback.apply((context ? context : emptyObject), args)
+          var callback = c[0], matcher = c[1]
+          if(contextMatches(matcher, context)){
+            callback.apply(context, args)
           }
         })
       }
