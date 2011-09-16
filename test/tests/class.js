@@ -46,6 +46,18 @@ describe("Dub classes", function() {
     it("should yield itself in the class definition", function(){
       expect(Car.eggs).toEqual('EGGS')
     })
+    
+    it("should call initialize if there is one", function(){
+      var Tree = Class('Tree', function(){
+        this.include({
+          init: function(thing, stuff){
+            this.smell = ['bad', thing, stuff].join(' ')
+          }
+        })
+      })
+      var tree = Tree.create('and', 'great')
+      expect(tree.smell).toEqual('bad and great')
+    })
 
   })
 

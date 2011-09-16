@@ -3,7 +3,9 @@ var Class = function(name, definitionFunction){
   var klass = {
     name: name,
     create: function(){
-      return new konstructor()
+      var obj = new konstructor()
+      if(obj.init) obj.init.apply(obj, arguments)
+      return obj
     },
     include: function(obj){
       Object.extend(konstructor.prototype, obj)
