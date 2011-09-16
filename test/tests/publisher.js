@@ -1,4 +1,4 @@
-describe("Dub", function() {
+describe("Dub publisher", function() {
 
   var callback
 

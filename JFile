@@ -17,8 +17,10 @@ src_dir './src'
 bundle 'dub.js' do
   license 'license.txt'
   file 'augment-0.3.0.min.js'
+  file 'core_ext.js'
   file 'dub.js'
   file 'publisher.js'
+  file 'class.js'
 end
 
 # Optional post-bundling filter, for example for string substitution

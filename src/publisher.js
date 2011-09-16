@@ -17,7 +17,7 @@ dub.publisher = (function(){
       if(callbacks[event]){
         callbacks[event].forEach(function(c){
           var callback = c[0], subscribedContext = c[1]
-          if(subscribedContext == undefined || subscribedContext === context){
+          if(!subscribedContext || subscribedContext === context){
             callback.apply((context ? context : emptyObject), args)
           }
         })
