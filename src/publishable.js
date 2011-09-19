@@ -1,10 +1,8 @@
 dub.publishable = {
   on: function(event, callback){
-    dub.on([event, this], callback)
+    dub.on(event, callback, this)
   },
-  emit: function(){
-    var event = Array.prototype.shift.apply(arguments)
-    var args = Array.prototype.slice.apply(arguments)
-    dub.emit.apply(dub, [[event, this]].concat(args))
+  emit: function(event, args){
+    dub.emit(event, args, this)
   }
 }

@@ -1,44 +1,29 @@
 dub.publisher = (function(){
   
-  function contextMatches(matcher, context){
+  function senderMatches(matcher, sender){
     if(!matcher) return true
-    if(matcher.constructor === Function) return matcher(context)
-    if(matcher === context) return true
-    if(context.klass && matcher == context.klass.name) return true
+    if(matcher.constructor === Function) return matcher(sender)
+    if(matcher === sender) return true
+    if(sender.klass && matcher == sender.klass.name) return true
     return false
   }
   
   var callbacks = {}
   
   return {
-    emit: function(){
-      var event = Array.prototype.shift.apply(arguments)
-      var args = arguments
-      
-      var context
-      if(Array.isArray(event)){
-        context = event[1]
-        event = event[0]
-      }
-
+    emit: function(event, args, sender){
       if(callbacks[event]){
         callbacks[event].forEach(function(c){
           var callback = c[0], matcher = c[1]
-          if(contextMatches(matcher, context)){
-            callback.apply(context, args)
+          if(senderMatches(matcher, sender)){
+            callback.apply(this, [sender].concat(args))
           }
         })
       }
     },
-    on: function(event, callback){
-      var context
-      if(Array.isArray(event)){
-        context = event[1]
-        event = event[0]
-      }
-
+    on: function(event, callback, matcher){
       if(!callbacks[event]) callbacks[event] = []
-      callbacks[event].push([callback, context])
+      callbacks[event].push([callback, matcher])
     }
   }
 })()
