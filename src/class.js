@@ -1,15 +1,16 @@
+dub.classes = {}
 var Class = function(name, definitionFunction){
   
-  var klass = {
+  var klass = dub.classes[name] = {
     name: name,
     definitionFunction: definitionFunction,
     create: function(){
-      var obj = new konstructor()
+      var obj = new dubObject()
       if(obj.init) obj.init.apply(obj, arguments)
       return obj
     },
     include: function(obj){
-      Object.extend(konstructor.prototype, obj)
+      Object.extend(dubObject.prototype, obj)
     },
     extend: function(obj){
       Object.extend(this, obj)
@@ -19,8 +20,8 @@ var Class = function(name, definitionFunction){
     }
   }
 
-  var konstructor = function(){}
-  konstructor.prototype = {
+  var dubObject = function(){}
+  dubObject.prototype = {
     klass: klass
   }
   
