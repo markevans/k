@@ -1,12 +1,18 @@
 dub.classes = {}
 var Class = function(name, definitionFunction){
   
+  var onInitCallbacks = []
+  
   var klass = dub.classes[name] = {
     name: name,
     definitionFunction: definitionFunction,
     create: function(){
+      var args = arguments
       var obj = new dubObject()
-      if(obj.init) obj.init.apply(obj, arguments)
+      onInitCallbacks.forEach(function(callback){
+        callback.apply(obj, args)
+      })
+      if(obj.init) obj.init.apply(obj, args)
       return obj
     },
     include: function(obj){
@@ -17,6 +23,9 @@ var Class = function(name, definitionFunction){
     },
     like: function(klass){
       klass.definitionFunction.call(this, this)
+    },
+    onInit: function(init){
+      onInitCallbacks.push(init)
     }
   }
 
