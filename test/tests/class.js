@@ -108,6 +108,16 @@ describe("Classes", function() {
       expect(Reliant.eggs).toEqual('fried')
     })
     
+    it("should allow passing another arg to Class for specifying a 'like'", function(){
+      var Jag = Class('Jag', Car, function(){})
+      expect(Jag.create().numWheels).toEqual(4)
+    })
+
+    it("should allow passing the 'like' arg to Class but not the function", function(){
+      var Daimler = Class('Daimler', Car)
+      expect(Daimler.create().numWheels).toEqual(4)
+    })
+    
   })
 
   describe("onInit", function(){

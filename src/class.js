@@ -1,5 +1,14 @@
 dub.classes = {}
-var Class = function(name, definitionFunction){
+var Class = function(){
+  var name = arguments[0],
+      parent, definitionFunction
+  
+  if(arguments[1] && arguments[1].constructor === Function){
+    definitionFunction = arguments[1]
+  } else {
+    parent = arguments[1]
+    definitionFunction = arguments[2]
+  }
   
   var onInitCallbacks = []
   
@@ -34,6 +43,7 @@ var Class = function(name, definitionFunction){
     klass: klass
   }
   
+  if(parent) klass.like(parent)
   if(definitionFunction) definitionFunction.call(klass, klass)
   
   return klass
