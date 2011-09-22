@@ -1,13 +1,11 @@
 var Model = Class('Model', function(klass){
   
+  this.onInit(function(attrs){
+    this._attributes = attrs || {}
+  })
+  
   this.include({
-    init: function(attrs){
-      if(attrs){
-        this._attributes = attrs
-      }
-    },
     attributes: function(){
-      if(!this._attributes) this._attributes = {}
       return this._attributes
     },
     get: function(key){
