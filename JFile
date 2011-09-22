@@ -23,6 +23,7 @@ bundle 'dub.js' do
   file 'class.js'
   file 'publishable.js'
   file 'model.js'
+  file 'view.js'
 end
 
 # Optional post-bundling filter, for example for string substitution
