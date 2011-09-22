@@ -26,15 +26,19 @@ var Class = function(){
     },
     include: function(obj){
       Object.extend(dubObject.prototype, obj)
+      return this
     },
     extend: function(obj){
       Object.extend(this, obj)
+      return this
     },
     like: function(klass){
       klass.definitionFunction.call(this, this)
+      return this
     },
     onInit: function(init){
       onInitCallbacks.push(init)
+      return this
     }
   }
 

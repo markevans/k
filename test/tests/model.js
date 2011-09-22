@@ -30,4 +30,12 @@ describe("models", function() {
     expect(model.get('eggNog')).toEqual('WEASELS')
   })
 
+  it("should be publishable", function(){
+    var callback = jasmine.createSpy('callback')
+    var model = Model.create()
+    model.on('split', callback)
+    model.emit('split')
+    expect(callback).toHaveBeenCalled()
+  })
+
 })

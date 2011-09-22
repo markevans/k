@@ -1,10 +1,14 @@
 var Model = Class('Model', function(klass){
   
-  this.onInit(function(attrs){
+  this
+  
+  .onInit(function(attrs){
     this._attributes = attrs || {}
   })
-  
-  this.include({
+
+  .include(dub.publishable)
+
+  .include({
     attributes: function(){
       return this._attributes
     },
