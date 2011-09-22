@@ -2,6 +2,7 @@ var Class = function(name, definitionFunction){
   
   var klass = {
     name: name,
+    definitionFunction: definitionFunction,
     create: function(){
       var obj = new konstructor()
       if(obj.init) obj.init.apply(obj, arguments)
@@ -12,6 +13,9 @@ var Class = function(name, definitionFunction){
     },
     extend: function(obj){
       Object.extend(this, obj)
+    },
+    like: function(klass){
+      klass.definitionFunction.call(this, this)
     }
   }
 
