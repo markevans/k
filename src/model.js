@@ -13,25 +13,25 @@ dub.Model = dub.Class('Model', function(klass){
       return this._attributes
     },
     get: function(key){
-      var customMethod = 'get' + key.upperFirstChar()
+      var customMethod = '_get' + key.upperFirstChar()
       if(this[customMethod]){
         return this[customMethod]() 
       } else {
-        return this._getAttr(key)
+        return this.getAttr(key)
       }
     },
     set: function(key, value){
-      var customMethod = 'set' + key.upperFirstChar()
+      var customMethod = '_set' + key.upperFirstChar()
       if(this[customMethod]){
         this[customMethod](value) 
       } else {
-        this._setAttr(key, value)
+        this.setAttr(key, value)
       }
     },
-    _getAttr: function(key){
+    getAttr: function(key){
       return this.attributes()[key]
     },
-    _setAttr: function(key, value){
+    setAttr: function(key, value){
       this.attributes()[key] = value
       this.emit('change', [key, value])
       this.emit('change:'+key, [value])

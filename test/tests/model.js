@@ -18,14 +18,14 @@ describe("models", function() {
 
   it("should call custom setBlah if it exists", function(){
     var model = dub.Model.create()
-    model.setEggNog = function(num){ this._setAttr('eggNog', num * 15) }
+    model._setEggNog = function(num){ this.setAttr('eggNog', num * 15) }
     model.set('eggNog', 5)
     expect(model.get('eggNog')).toEqual(75)
   })
 
   it("should call custom getBlah if it exists", function(){
     var model = dub.Model.create()
-    model.getEggNog = function(){ return this._getAttr('eggNog').toUpperCase() }
+    model._getEggNog = function(){ return this.getAttr('eggNog').toUpperCase() }
     model.set('eggNog', 'weasels')
     expect(model.get('eggNog')).toEqual('WEASELS')
   })
