@@ -44,28 +44,12 @@
 
     it("should bind to DOM events", function(){
       model.fart = jasmine.createSpy('fart')
-      dub.View.onDOM('.inner', 'click', 'fart')
-      var view = dub.View.create('#test-div', model)
-      $('#test-div .inner').click()
-      expect(model.fart).toHaveBeenCalled()
-    })
-
-    it("should allow mapping the args", function(){
-      model.fart = jasmine.createSpy('fart')
-      dub.View.onDOM('.inner', 'click', 'fart', function(evt){ return [evt.type, 'beetle'] })
+      dub.View.onDOM('.inner', 'click', function(model, evt){ model.fart(evt.type, 'beetle') })
       var view = dub.View.create('#test-div', model)
       $('#test-div .inner').click()
       expect(model.fart).toHaveBeenCalledWith('click', 'beetle')
     })
     
-    it("should allow returning a non-array for the args mapper", function(){
-      model.fart = jasmine.createSpy('fart')
-      dub.View.onDOM('.inner', 'click', 'fart', function(evt){ return evt.type + 'beetle' })
-      var view = dub.View.create('#test-div', model)
-      $('#test-div .inner').click()
-      expect(model.fart).toHaveBeenCalledWith('clickbeetle')
-    })
-  
   })
   
 })(jQuery)

@@ -9,14 +9,7 @@ dub.View = dub.Class('View', function(klass){
       
       this.constructor.onDOMSubscriptions.forEach(function(sub){
         self._delegate(sub.selector, sub.event, function(){
-          var args
-          if(sub.argsMap){
-            args = sub.argsMap.apply(sub, arguments)
-            if(!Array.isArray(args)) args = [args]
-          } else {
-            args = arguments
-          }
-          model[sub.method].apply(model, args)
+          sub.callback.apply(self, [model].concat(Array.prototype.slice.call(arguments)))
         })
       })
       
@@ -51,12 +44,11 @@ dub.View = dub.Class('View', function(klass){
       
       onDOMSubscriptions: [],
 
-      onDOM: function(selector, event, method, argsMap){
+      onDOM: function(selector, event, callback){
         this.onDOMSubscriptions.push({
           event: event,
           selector: selector,
-          method: method,
-          argsMap: argsMap
+          callback: callback
         })
         return this
       }
