@@ -37,3 +37,6 @@ dub.Model = dub.Class('Model', function(klass){
   })
   
 })
+dub.model = function(name, definition){
+  dub.globalObject[name] = dub.Class(name, dub.Model, definition)
+}

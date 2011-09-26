@@ -64,3 +64,6 @@ dub.View = dub.Class('View', function(klass){
     })
   
 })
+dub.view = function(name, definition){
+  dub.globalObject[name] = dub.Class(name, dub.View, definition)
+}
