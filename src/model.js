@@ -33,6 +33,8 @@ dub.Model = dub.Class('Model', function(klass){
     },
     _setAttr: function(key, value){
       this.attributes()[key] = value
+      this.emit('change', [key, value])
+      this.emit('change:'+key, [value])
     }
   })
   

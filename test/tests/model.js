@@ -37,5 +37,21 @@ describe("models", function() {
     model.emit('split')
     expect(callback).toHaveBeenCalled()
   })
+  
+  it("should publish a change event on change", function(){
+    var callback = jasmine.createSpy('callback')
+    var model = dub.Model.create()
+    model.on('change', callback)
+    model.set('banana', 'co')
+    expect(callback).toHaveBeenCalledWith(model, 'banana', 'co')
+  })
+
+  it("should publish a change:blah event on change", function(){
+    var callback = jasmine.createSpy('callback')
+    var model = dub.Model.create()
+    model.on('change:banana', callback)
+    model.set('banana', 'co')
+    expect(callback).toHaveBeenCalledWith(model, 'co')
+  })
 
 })
