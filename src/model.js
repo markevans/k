@@ -35,6 +35,9 @@ dub.Model = dub.Class('Model', function(klass){
       this.attributes()[key] = value
       this.emit('change', [key, value])
       this.emit('change:'+key, [value])
+    },
+    toString: function(){
+      return this.constructor.name
     }
   })
   
