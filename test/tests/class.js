@@ -3,7 +3,7 @@ describe("Classes", function() {
   var Car
   
   beforeEach(function(){
-    Car = Class('Car', function(klass){
+    Car = dub.Class('Car', function(klass){
       
       this.include({
         colour: 'red',
@@ -27,9 +27,9 @@ describe("Classes", function() {
     var car = Car.create()
   })
 
-  it("should refer the instance to its class", function(){
+  it("should refer the instance to its class/constructor", function(){
     var car = Car.create()
-    expect(car.klass).toEqual(Car)
+    expect(car.constructor).toEqual(Car)
   })
   
   it("should allow defining instance vars", function(){
@@ -47,7 +47,7 @@ describe("Classes", function() {
   })
   
   it("should call initialize if there is one", function(){
-    var Tree = Class('Tree', function(){
+    var Tree = dub.Class('Tree', function(){
       this.include({
         init: function(thing, stuff){
           this.smell = ['bad', thing, stuff].join(' ')
@@ -59,17 +59,15 @@ describe("Classes", function() {
   })
 
   it("should allow for no definition function", function(){
-    var Blobo = Class('Blobo')
+    var Blobo = dub.Class('Blobo')
   })
   
-  describe("like", function(){
+  describe("inheritance", function(){
     
     var Reliant
 
     beforeEach(function(){
-      Reliant = Class('Reliant', function(klass){
-
-        this.like(Car)
+      Reliant = dub.Class('Reliant', Car, function(klass){
 
         this.include({
           numWheels: 3,
@@ -108,14 +106,15 @@ describe("Classes", function() {
       expect(Reliant.eggs).toEqual('fried')
     })
     
-    it("should allow passing another arg to Class for specifying a 'like'", function(){
-      var Jag = Class('Jag', Car, function(){})
-      expect(Jag.create().numWheels).toEqual(4)
+    it("should allow passing the 'inherit' arg to Class but not the function", function(){
+      var Daimler = dub.Class('Daimler', Car)
+      expect(Daimler.create().numWheels).toEqual(4)
     })
 
-    it("should allow passing the 'like' arg to Class but not the function", function(){
-      var Daimler = Class('Daimler', Car)
-      expect(Daimler.create().numWheels).toEqual(4)
+    it("should dynamically update if stuff is added to its parent", function(){
+      var Peugout = dub.Class('Peugout', Car)
+      Car.include({dice: 'three'})
+      expect(Peugout.create().dice).toEqual('three')
     })
     
   })

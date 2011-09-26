@@ -1,4 +1,4 @@
-var Model = Class('Model', function(klass){
+dub.Model = dub.Class('Model', function(klass){
   
   this
   

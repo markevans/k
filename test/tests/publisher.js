@@ -55,7 +55,7 @@ describe("publisher", function() {
     var Blobo, blobo
     
     beforeEach(function(){
-      Blobo = Class('Blobo')
+      Blobo = dub.Class('Blobo')
       blobo = Blobo.create()
     })
     

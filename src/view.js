@@ -1,4 +1,4 @@
-var View = Class('View', function(klass){
+dub.View = dub.Class('View', function(klass){
   
   this
 
@@ -7,7 +7,7 @@ var View = Class('View', function(klass){
       this.elem = this._elemFor(el)
       this.model = model
       
-      this.klass.onDOMSubscriptions.forEach(function(sub){
+      this.constructor.onDOMSubscriptions.forEach(function(sub){
         self._delegate(sub.selector, sub.event, function(){
           var args
           if(sub.argsMap){
@@ -20,7 +20,7 @@ var View = Class('View', function(klass){
         })
       })
       
-      this.klass.onModelSubscriptions.forEach(function(sub){
+      this.constructor.onModelSubscriptions.forEach(function(sub){
         model.on(sub.event, function(){
           self[sub.method].apply(self, arguments)
         })

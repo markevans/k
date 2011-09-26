@@ -1,6 +1,6 @@
 describe("publishable", function() {
 
-  var Car = Class('Car', function(){
+  var Car = dub.Class('Car', function(){
     this.include(dub.publishable)
   })
   var car, callback

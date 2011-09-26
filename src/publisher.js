@@ -4,7 +4,7 @@ dub.publisher = (function(){
     if(!matcher) return true
     if(matcher.constructor === Function) return matcher(sender)
     if(matcher === sender) return true
-    if(sender.klass && matcher == sender.klass.name) return true
+    if(matcher == sender.constructor.name) return true
     return false
   }
   

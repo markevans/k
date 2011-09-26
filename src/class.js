@@ -1,54 +1,57 @@
 dub.classes = {}
-var Class = function(){
+
+dub.BaseClass = function(){}
+Object.extend(dub.BaseClass, {
+  madeByDub: true,
+  create: function(){
+    var args = arguments
+    var obj = new this()
+    obj.constructor = this
+    this.onInitCallbacks.forEach(function(callback){
+      callback.apply(obj, args)
+    })
+    if(obj.init) obj.init.apply(obj, args)
+    return obj
+  },
+  include: function(obj){
+    Object.extend(this.prototype, obj)
+    return this
+  },
+  extend: function(obj){
+    Object.extend(this, obj)
+    return this
+  },
+  onInit: function(init){
+    this.onInitCallbacks.push(init)
+    return this
+  }
+})
+
+dub.Class = function(){
+  
+  // Sort out the arguments:
+  // Class('ClassName', parent=dub.BaseClass, definitionFunction=null)
   var name = arguments[0],
       parent, definitionFunction
-  
-  if(arguments[1] && arguments[1].constructor === Function){
-    definitionFunction = arguments[1]
-  } else {
+
+  if(arguments[1] && arguments[1].madeByDub){
     parent = arguments[1]
     definitionFunction = arguments[2]
-  }
-  
-  var onInitCallbacks = []
-  
-  var klass = dub.classes[name] = {
-    name: name,
-    definitionFunction: definitionFunction,
-    create: function(){
-      var args = arguments
-      var obj = new dubObject()
-      onInitCallbacks.forEach(function(callback){
-        callback.apply(obj, args)
-      })
-      if(obj.init) obj.init.apply(obj, args)
-      return obj
-    },
-    include: function(obj){
-      Object.extend(dubObject.prototype, obj)
-      return this
-    },
-    extend: function(obj){
-      Object.extend(this, obj)
-      return this
-    },
-    like: function(klass){
-      klass.definitionFunction.call(this, this)
-      return this
-    },
-    onInit: function(init){
-      onInitCallbacks.push(init)
-      return this
-    }
+  } else {
+    parent = dub.BaseClass
+    definitionFunction = arguments[1]
   }
 
-  var dubObject = function(){}
-  dubObject.prototype = {
-    klass: klass
-  }
-  
-  if(parent) klass.like(parent)
+  // Create the class
+  eval("var klass = function " + name + "(){}")
+  klass.prototype = new parent()
+  Object.extend(klass, parent)
+  klass.onInitCallbacks = parent.onInitCallbacks || []
+
+  // Store a reference for reflection purposes
+  dub.classes[name] = klass
+
   if(definitionFunction) definitionFunction.call(klass, klass)
-  
+
   return klass
 }

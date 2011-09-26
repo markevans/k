@@ -1,3 +1,5 @@
 var dub = (function(){
-  return {};
+  return {
+    globalObject: this
+  };
 })();
