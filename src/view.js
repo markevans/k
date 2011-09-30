@@ -2,7 +2,7 @@ dub.View = dub.Class('View', function(klass){
   
   this
 
-    .onInit(function(el, model){
+    .beforeInit(function(el, model){
       var self = this
       this.elem = this._elemFor(el)
       this.model = model
@@ -26,7 +26,10 @@ dub.View = dub.Class('View', function(klass){
         return jQuery(el)[0]
       },
       _delegate: function(selector, event, callback){
-        jQuery(this.elem).delegate(selector, event, callback)
+        jQuery(this.elem).delegate(selector, event, function(){
+          callback.apply(this, arguments)
+          return false
+        })
       }
     })
   

@@ -2,7 +2,7 @@ dub.Model = dub.Class('Model', function(klass){
   
   this
   
-  .onInit(function(attrs){
+  .beforeInit(function(attrs){
     this._attributes = attrs || {}
   })
 

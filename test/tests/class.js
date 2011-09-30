@@ -119,19 +119,19 @@ describe("Classes", function() {
     
   })
 
-  describe("onInit", function(){
+  describe("beforeInit", function(){
     
     beforeEach(function(){
-      Car.onInit(function(some, thing){ this.argo = [some, thing] })
+      Car.beforeInit(function(some, thing){ this.argo = [some, thing] })
     })
     
-    it("should call the onInit callback", function(){
+    it("should call the beforeInit callback", function(){
       var car = Car.create('dog', 'man')
       expect(car.argo).toEqual(['dog', 'man'])
     })
     
-    it("should call all onInit callbacks then init", function(){
-      Car.onInit(function(){ this.argo.push('star') })
+    it("should call all beforeInit callbacks then init", function(){
+      Car.beforeInit(function(){ this.argo.push('star') })
       Car.include({init: function(){ this.argo.push('yo') }})
       var car = Car.create('dog', 'man')
       expect(car.argo).toEqual(['dog', 'man', 'star', 'yo'])
