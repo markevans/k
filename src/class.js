@@ -7,10 +7,9 @@ Object.extend(dub.BaseClass, {
     var args = arguments
     var obj = new this()
     obj.constructor = this
-    this.beforeInitCallbacks.forEach(function(callback){
-      callback.apply(obj, args)
-    })
+    this.beforeInitCallbacks.forEach(function(callback){ callback.apply(obj, args) })
     if(obj.init) obj.init.apply(obj, args)
+    this.afterInitCallbacks.forEach(function(callback){ callback.apply(obj, args) })
     return obj
   },
   include: function(obj){
@@ -23,6 +22,10 @@ Object.extend(dub.BaseClass, {
   },
   beforeInit: function(init){
     this.beforeInitCallbacks.push(init)
+    return this
+  },
+  afterInit: function(init){
+    this.afterInitCallbacks.push(init)
     return this
   }
 })
@@ -47,6 +50,7 @@ dub.Class = function(){
   klass.prototype = new parent()
   Object.extend(klass, parent)
   klass.beforeInitCallbacks = parent.beforeInitCallbacks || []
+  klass.afterInitCallbacks  = parent.afterInitCallbacks  || []
 
   // Store a reference for reflection purposes
   dub.classes[name] = klass

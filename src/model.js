@@ -5,6 +5,10 @@ dub.Model = dub.Class('Model', function(klass){
   .beforeInit(function(attrs){
     this._attributes = attrs || {}
   })
+  
+  .afterInit(function(){
+    this.emit('created')
+  })
 
   .include(dub.publishable)
 
