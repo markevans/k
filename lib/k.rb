@@ -1,5 +1,8 @@
 require "k/version"
 
 module K
-  # Your code goes here...
+  if defined? Rails
+    class Engine < Rails::Engine
+    end
+  end
 end
