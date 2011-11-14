@@ -1,4 +1,4 @@
-var dub = (function(){
+var k = (function(){
   return {
     globalObject: this
   };

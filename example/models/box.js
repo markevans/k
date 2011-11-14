@@ -1,4 +1,4 @@
-dub.model('Box', function(){
+k.model('Box', function(){
   this
   
     .include({

@@ -1,4 +1,4 @@
-/*  dub.js, version <VERSION>
+/*  k.js, version <VERSION>
 
 Copyright (c) 2011 [your name here]
 

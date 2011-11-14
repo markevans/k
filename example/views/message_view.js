@@ -1,4 +1,4 @@
-dub.view('MessageView', function(){
+k.view('MessageView', function(){
   this
 
     .onModel('message', 'render')

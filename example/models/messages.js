@@ -1,4 +1,4 @@
-dub.model('Messages', function(){
+k.model('Messages', function(){
   this.
     include({
       message: function(text){

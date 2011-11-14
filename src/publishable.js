@@ -1,8 +1,8 @@
-dub.publishable = {
+k.publishable = {
   on: function(event, callback){
-    dub.on(event, callback, this)
+    k.on(event, callback, this)
   },
   emit: function(event, args){
-    dub.emit(event, args, this)
+    k.emit(event, args, this)
   }
 }

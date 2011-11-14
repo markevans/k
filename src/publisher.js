@@ -1,4 +1,4 @@
-dub.publisher = (function(){
+k.publisher = (function(){
   
   function senderMatches(matcher, sender){
     if(!matcher) return true
@@ -27,5 +27,5 @@ dub.publisher = (function(){
     }
   }
 })()
-dub.emit = dub.publisher.emit
-dub.on = dub.publisher.on
+k.emit = k.publisher.emit
+k.on = k.publisher.on

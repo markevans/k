@@ -14,11 +14,11 @@ src_dir './src'
 
 # Define one or more JavaScript bundles
 #
-bundle 'dub.js' do
+bundle 'k.js' do
   license 'license.txt'
   file 'augment-0.3.0.min.js'
   file 'core_ext.js'
-  file 'dub.js'
+  file 'k.js'
   file 'publisher.js'
   file 'class.js'
   file 'publishable.js'

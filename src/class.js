@@ -1,7 +1,7 @@
-dub.classes = {}
+k.classes = {}
 
-dub.BaseClass = function(){}
-Object.extend(dub.BaseClass, {
+k.BaseClass = function(){}
+Object.extend(k.BaseClass, {
   madeByDub: true,
   create: function(){
     var args = arguments
@@ -30,10 +30,10 @@ Object.extend(dub.BaseClass, {
   }
 })
 
-dub.Class = function(){
+k.Class = function(){
   
   // Sort out the arguments:
-  // Class('ClassName', parent=dub.BaseClass, definitionFunction=null)
+  // Class('ClassName', parent=k.BaseClass, definitionFunction=null)
   var name = arguments[0],
       parent, definitionFunction
 
@@ -41,7 +41,7 @@ dub.Class = function(){
     parent = arguments[1]
     definitionFunction = arguments[2]
   } else {
-    parent = dub.BaseClass
+    parent = k.BaseClass
     definitionFunction = arguments[1]
   }
 
@@ -53,7 +53,7 @@ dub.Class = function(){
   klass.afterInitCallbacks  = parent.afterInitCallbacks  || []
 
   // Store a reference for reflection purposes
-  dub.classes[name] = klass
+  k.classes[name] = klass
 
   if(definitionFunction) definitionFunction.call(klass, klass)
 

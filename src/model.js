@@ -1,4 +1,4 @@
-dub.Model = dub.Class('Model', function(klass){
+k.Model = k.Class('Model', function(klass){
   
   this
   
@@ -10,7 +10,7 @@ dub.Model = dub.Class('Model', function(klass){
     this.emit('created')
   })
 
-  .include(dub.publishable)
+  .include(k.publishable)
 
   .include({
     attributes: function(){
@@ -46,6 +46,6 @@ dub.Model = dub.Class('Model', function(klass){
   })
   
 })
-dub.model = function(name, definition){
-  dub.globalObject[name] = dub.Class(name, dub.Model, definition)
+k.model = function(name, definition){
+  k.globalObject[name] = k.Class(name, k.Model, definition)
 }

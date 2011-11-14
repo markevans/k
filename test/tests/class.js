@@ -3,7 +3,7 @@ describe("Classes", function() {
   var Car
   
   beforeEach(function(){
-    Car = dub.Class('Car', function(klass){
+    Car = k.Class('Car', function(klass){
       
       this.include({
         colour: 'red',
@@ -47,7 +47,7 @@ describe("Classes", function() {
   })
   
   it("should call initialize if there is one", function(){
-    var Tree = dub.Class('Tree', function(){
+    var Tree = k.Class('Tree', function(){
       this.include({
         init: function(thing, stuff){
           this.smell = ['bad', thing, stuff].join(' ')
@@ -59,7 +59,7 @@ describe("Classes", function() {
   })
 
   it("should allow for no definition function", function(){
-    var Blobo = dub.Class('Blobo')
+    var Blobo = k.Class('Blobo')
   })
   
   describe("inheritance", function(){
@@ -67,7 +67,7 @@ describe("Classes", function() {
     var Reliant
 
     beforeEach(function(){
-      Reliant = dub.Class('Reliant', Car, function(klass){
+      Reliant = k.Class('Reliant', Car, function(klass){
 
         this.include({
           numWheels: 3,
@@ -107,12 +107,12 @@ describe("Classes", function() {
     })
     
     it("should allow passing the 'inherit' arg to Class but not the function", function(){
-      var Daimler = dub.Class('Daimler', Car)
+      var Daimler = k.Class('Daimler', Car)
       expect(Daimler.create().numWheels).toEqual(4)
     })
 
     it("should dynamically update if stuff is added to its parent", function(){
-      var Peugout = dub.Class('Peugout', Car)
+      var Peugout = k.Class('Peugout', Car)
       Car.include({dice: 'three'})
       expect(Peugout.create().dice).toEqual('three')
     })

@@ -7,46 +7,46 @@ describe("publisher", function() {
   })
 
   it("should do simple pubsub", function() {
-    dub.on('sing', callback)
-    dub.emit('sing')
+    k.on('sing', callback)
+    k.emit('sing')
     expect(callback).toHaveBeenCalled()
   })
 
   it("should set the sender as null if not set", function() {
     var x = 'dummy'
-    dub.on('sing', function(sender){ x = sender })
-    dub.emit('sing')
+    k.on('sing', function(sender){ x = sender })
+    k.emit('sing')
     expect(x).toEqual(null)
   })
 
   it("should pass on the args", function() {
-    dub.on('sing', callback)
-    dub.emit('sing', ['some', ['args'], {inn: 'it'}])
+    k.on('sing', callback)
+    k.emit('sing', ['some', ['args'], {inn: 'it'}])
     expect(callback).toHaveBeenCalledWith(undefined, 'some', ['args'], {inn: 'it'})
   })
   
   it("should set the sender", function() {
     var x
-    dub.on('sing', function(sender){ x = sender })
-    dub.emit('sing', [], 123)
+    k.on('sing', function(sender){ x = sender })
+    k.emit('sing', [], 123)
     expect(x).toEqual(123)
   })
 
   it("should call the callback if subscribed to the correct sender", function() {
-    dub.on('sing', callback, 123)
-    dub.emit('sing', [], 123)
+    k.on('sing', callback, 123)
+    k.emit('sing', [], 123)
     expect(callback).toHaveBeenCalled()
   })
 
   it("should not call the callback if subscribed to the incorrect sender", function() {
-    dub.on('sing', callback, 1234)
-    dub.emit('sing', [], 123)
+    k.on('sing', callback, 1234)
+    k.emit('sing', [], 123)
     expect(callback).not.toHaveBeenCalled()
   })
 
   it("should call the callback if the sender is not specified", function() {
-    dub.on('sing', callback)
-    dub.emit('sing', [], 123)
+    k.on('sing', callback)
+    k.emit('sing', [], 123)
     expect(callback).toHaveBeenCalled()
   })
 
@@ -55,19 +55,19 @@ describe("publisher", function() {
     var Blobo, blobo
     
     beforeEach(function(){
-      Blobo = dub.Class('Blobo')
+      Blobo = k.Class('Blobo')
       blobo = Blobo.create()
     })
     
     it("should call the callback if the sender is of the specified class", function() {
-      dub.on('sing', callback, 'Blobo')
-      dub.emit('sing', [], blobo)
+      k.on('sing', callback, 'Blobo')
+      k.emit('sing', [], blobo)
       expect(callback).toHaveBeenCalled()
     })
 
     it("should not call the callback if the sender is not of the specified class", function() {
-      dub.on('sing', callback, 'Chargrilled')
-      dub.emit('sing', [], blobo)
+      k.on('sing', callback, 'Chargrilled')
+      k.emit('sing', [], blobo)
       expect(callback).not.toHaveBeenCalled()
     })
   
@@ -78,14 +78,14 @@ describe("publisher", function() {
     var matcher = function(ctx){ return ctx == 5 }
     
     it("should call the subscribed callback if the matcher function is true", function() {
-      dub.on('sing', callback, matcher)
-      dub.emit('sing', [], 5)
+      k.on('sing', callback, matcher)
+      k.emit('sing', [], 5)
       expect(callback).toHaveBeenCalled()
     })
 
     it("should not call the subscribed callback if the matcher function is false", function() {
-      dub.on('sing', callback, matcher)
-      dub.emit('sing', [], 6)
+      k.on('sing', callback, matcher)
+      k.emit('sing', [], 6)
       expect(callback).not.toHaveBeenCalled()
     })
     

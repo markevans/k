@@ -1,4 +1,4 @@
-dub.View = dub.Class('View', function(klass){
+k.View = k.Class('View', function(klass){
   
   this
 
@@ -59,6 +59,6 @@ dub.View = dub.Class('View', function(klass){
     })
   
 })
-dub.view = function(name, definition){
-  dub.globalObject[name] = dub.Class(name, dub.View, definition)
+k.view = function(name, definition){
+  k.globalObject[name] = k.Class(name, k.View, definition)
 }
